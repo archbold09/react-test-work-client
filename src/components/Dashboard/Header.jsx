@@ -34,10 +34,10 @@ const Header = () => {
         <Link variant="button" color="textPrimary" component={RouterLink} to="exercise1" className={classes.link}>
           Exercise 1
         </Link>
-        <Link variant="button" color="textPrimary" href="#" className={classes.link}>
+        <Link variant="button" color="textPrimary" component={RouterLink} to="exercise2" className={classes.link}>
           Exercise 2
         </Link>
-        <Link variant="button" color="textPrimary" href="#" className={classes.link}>
+        <Link variant="button" color="textPrimary" component={RouterLink} to="exercise3" className={classes.link}>
           Exercise 3
         </Link>
       </nav>

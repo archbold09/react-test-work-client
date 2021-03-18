@@ -3,7 +3,7 @@ import { Alert as AlertUI } from "@material-ui/lab";
 const Alert = ({ typeAlert, textAlert }) => {
   return (
     <>
-      <AlertUI severity={typeAlert}>{textAlert}!</AlertUI>
+      <AlertUI severity={typeAlert}>{textAlert}</AlertUI>
     </>
   );
 };

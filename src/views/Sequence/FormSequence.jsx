@@ -1,7 +1,7 @@
 import React from "react";
 import { TextField, Button, Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { validateNumber, validateInput } from "../../utils/validate";
+import { validateNumber, validateInput, validateMultiple } from "../../utils/validate";
 import Alert from "../../components/Dashboard/Alert";
 
 const useStyles = makeStyles((theme) => ({
@@ -13,12 +13,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function FibonacciSolution(value) {
-  let data = [0, 1];
-  for (let i = 2; i <= value; i++) {
-    data[i] = data[i - 1] + data[i - 2];
+function SequenceSolution(value) {
+
+  let arrayResult = []
+  for (let i = 1; i <= value; i++) {
+    arrayResult.push(validateMultiple(i))
   }
-  return data;
+  return arrayResult.join(' , ');
 }
 
 function ShowAlert({ errorValue, textAlert }) {
@@ -29,12 +30,12 @@ function ShowAlert({ errorValue, textAlert }) {
   }
 }
 
-function ShowResult({ errorValue, resultFibonacci, classes }) {
-  if (!errorValue && resultFibonacci.length > 0 ) {
+function ShowResult({ errorValue, resultSequence, classes }) {
+  if (!errorValue && resultSequence.length > 0 ) {
     return (
       <Grid item className={classes.item}>
         <Typography> 😎 Resultado</Typography>
-        <Typography>[{resultFibonacci}]</Typography>
+        <Typography>[{resultSequence}]</Typography>
       </Grid>
     );
   } else {
@@ -42,13 +43,13 @@ function ShowResult({ errorValue, resultFibonacci, classes }) {
   }
 }
 
-const FormFibonacci = () => {
+const FormSequence = () => {
   const classes = useStyles();
 
   const [value, setValue] = React.useState("");
   const [errorValue, setErrorValue] = React.useState(false);
   const [helperTextValue, setHelperTextValue] = React.useState("");
-  const [resultFibonacci, setResultFibonacci] = React.useState("");
+  const [resultSequence, setResultSequence] = React.useState("");
 
   const handleChange = (event) => {
     /* Error prop */
@@ -75,9 +76,11 @@ const FormFibonacci = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    /* resultado fibonacci */
-    let result = FibonacciSolution(value).join(",");
-    setResultFibonacci(result);
+    let result = SequenceSolution(value)
+    setResultSequence(result);
+    /* resultado */
+    console.log('result');
+
   };
 
   return (
@@ -109,7 +112,7 @@ const FormFibonacci = () => {
       <ShowResult
         errorValue={errorValue}
         inputValue={value}
-        resultFibonacci={resultFibonacci}
+        resultSequence={resultSequence}
         classes={classes}
       />
 
@@ -118,4 +121,4 @@ const FormFibonacci = () => {
   );
 };
 
-export default FormFibonacci;
+export default FormSequence;
