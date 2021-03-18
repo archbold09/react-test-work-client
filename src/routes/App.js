@@ -8,6 +8,7 @@ import NotFound from "../layout/NotFound/Index";
 import Home from "../views/Home/Index";
 import Fibonacci from "../views/Fibonacci/Index";
 import Sequence from "../views/Sequence/Index";
+import Movies from "../views/Movies/Index";
 
 const App = () => (
   <BrowserRouter>
@@ -16,8 +17,8 @@ const App = () => (
         <Route exact path="/" component={Home} />
         <Route exact path="/exercise1" component={Fibonacci} />
         <Route exact path="/exercise2" component={Sequence} />
-        {/* <Route exact path="/exercise_3" component={} />
-            <Route exact path="/exercise_3/movie/:id" component={} /> */}
+        <Route exact path="/exercise3" component={Movies} />
+            {/* <Route exact path="/exercise_3/movie/:id" component={} /> */}
         <Route component={NotFound} />
       </Switch>
     </Dashboard>
