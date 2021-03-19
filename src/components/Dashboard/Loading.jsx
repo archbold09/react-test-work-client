@@ -10,12 +10,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Loading = ({state}) => {
+const Loading = () => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <CircularProgress/>
+      <h1>Cargando...</h1>
     </div>
   );
 };

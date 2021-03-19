@@ -1,6 +1,6 @@
 import React from "react";
-import { Container, Grid, Box, Typography, Link } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Container, Grid, Box, Typography, Link } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   "@global": {
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(8),
     paddingTop: theme.spacing(3),
     paddingBottom: theme.spacing(3),
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up("sm")]: {
       paddingTop: theme.spacing(6),
       paddingBottom: theme.spacing(6),
     },
@@ -24,31 +24,12 @@ const useStyles = makeStyles((theme) => ({
 
 const footers = [
   {
-    title: "Company",
-    description: ["Team", "History", "Contact us", "Locations"],
+    title: "Github",
+    link: "https://github.com/archbold09",
   },
   {
-    title: "Features",
-    description: [
-      "Cool stuff",
-      "Random feature",
-      "Team feature",
-      "Developer stuff",
-      "Another one",
-    ],
-  },
-  {
-    title: "Resources",
-    description: [
-      "Resource",
-      "Resource name",
-      "Another resource",
-      "Final resource",
-    ],
-  },
-  {
-    title: "Legal",
-    description: ["Privacy policy", "Terms of use"],
+    title: "Linkedin",
+    link: "https://www.linkedin.com/in/archbold09/",
   },
 ];
 
@@ -56,8 +37,8 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+      <Link color="inherit" target="_blank" href="https://angelarchboldweb.now.sh/">
+        angelarchboldweb.now.sh
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -76,13 +57,9 @@ const Footer = () => {
               {footer.title}
             </Typography>
             <ul>
-              {footer.description.map((item) => (
-                <li key={item}>
-                  <Link href="#" variant="subtitle1" color="textSecondary">
-                    {item}
-                  </Link>
-                </li>
-              ))}
+              <Link color="inherit" target="_blank" href={footer.link}>
+                {footer.link}
+              </Link>{" "}
             </ul>
           </Grid>
         ))}

@@ -8,7 +8,7 @@ import {
 } from "@material-ui/core";
 import Rating from "@material-ui/lab/Rating";
 
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
 import { searchGenres } from "../../utils/searcher";
 
@@ -92,6 +92,7 @@ function SearchGenrer({ genreIds, genres }) {
 }
 
 const Movie = ({ movie, genres }) => {
+
   const classes = useStyles();
   return (
     <>

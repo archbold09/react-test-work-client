@@ -1,6 +1,7 @@
 import React from "react";
+import { Link as RouterLink } from "react-router-dom";
 import {
-  Button,
+  Link,
   Card,
   CardActions,
   CardContent,
@@ -9,7 +10,7 @@ import {
   Typography,
   Container,
 } from "@material-ui/core";
-import StarIcon from "@material-ui/icons/StarBorder";
+import { Alert } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -33,43 +34,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const tiers = [
+const exercises = [
   {
-    title: "Free",
-    price: "0",
-    description: [
-      "10 users included",
-      "2 GB of storage",
-      "Help center access",
-      "Email support",
-    ],
-    buttonText: "Sign up for free",
-    buttonVariant: "outlined",
+    title: "Fibonacci",
+    description: "Serie fibonacci, un ejercicio clasico.",
+    buttonText: "Ver",
+    to: "exercise1",
   },
   {
-    title: "Pro",
-    subheader: "Most popular",
-    price: "15",
-    description: [
-      "20 users included",
-      "10 GB of storage",
-      "Help center access",
-      "Priority email support",
-    ],
-    buttonText: "Get started",
-    buttonVariant: "contained",
+    title: "Secuencia",
+    description: "Secuencia de números con algo peculiar ;).",
+    buttonText: "Ver",
+    to: "exercise2",
   },
   {
-    title: "Enterprise",
-    price: "30",
-    description: [
-      "50 users included",
-      "30 GB of storage",
-      "Help center access",
-      "Phone & email support",
-    ],
-    buttonText: "Contact us",
-    buttonVariant: "outlined",
+    title: "API Movies",
+    description:
+      "Consumo de una API creada con Express, con un buscador, componentes y más.",
+    buttonText: "Ver",
+    to: "exercise3",
   },
 ];
 
@@ -85,70 +68,84 @@ const HomeView = () => {
           color="textPrimary"
           gutterBottom
         >
-          Pricing
+          Prueba de React Js :D
         </Typography>
         <Typography
-          variant="h5"
+          variant="h6"
           align="center"
           color="textSecondary"
           component="p"
         >
-          Quickly build an effective pricing table for your potential customers
-          with this layout. It&apos;s built with default Material-UI components
-          with little customization.
+          Realice este proyecto implementando las mejores practicas y "Pro tips"
+          que he ido aprendiendo. Agradezco revisar :).
         </Typography>
+        <Alert severity="warning" style={{ marginTop: 30 }}>
+          Me ayudaria muchisimo su valoración y puntos a mejorar.
+        </Alert>
+
+        <Alert severity="success" style={{ marginTop: 30 }}>
+          Repositorio del Server:{" "}
+          <Link
+            style={{ fontWeight: 900 }}
+            color="inherit"
+            target="_blank"
+            href="https://github.com/archbold09/react-test-work-server"
+          >
+            https://github.com/archbold09/react-test-work-server
+          </Link>{" "}
+        </Alert>
+
+        <Alert severity="success" style={{ marginTop: 30 }}>
+          Repositorio del Cliente:{" "}
+          <Link
+            style={{ fontWeight: 900 }}
+            color="inherit"
+            target="_blank"
+            href="https://github.com/archbold09/react-test-work-client"
+          >
+            https://github.com/archbold09/react-test-work-client
+          </Link>{" "}
+        </Alert>
       </Container>
 
       <Container maxWidth="md" component="main">
         <Grid container spacing={5} alignItems="flex-end">
-          {tiers.map((tier) => (
+          {exercises.map((item) => (
             // Enterprise card is full width at sm breakpoint
             <Grid
               item
-              key={tier.title}
+              key={item.title}
               xs={12}
-              sm={tier.title === "Enterprise" ? 12 : 6}
+              sm={item.title === "Enterprise" ? 12 : 6}
               md={4}
             >
               <Card>
                 <CardHeader
-                  title={tier.title}
-                  subheader={tier.subheader}
+                  title={item.title}
                   titleTypographyProps={{ align: "center" }}
                   subheaderTypographyProps={{ align: "center" }}
-                  action={tier.title === "Pro" ? <StarIcon /> : null}
                   className={classes.cardHeader}
                 />
                 <CardContent>
-                  <div className={classes.cardPricing}>
-                    <Typography component="h2" variant="h3" color="textPrimary">
-                      ${tier.price}
-                    </Typography>
-                    <Typography variant="h6" color="textSecondary">
-                      /mo
-                    </Typography>
-                  </div>
-                  <ul>
-                    {tier.description.map((line) => (
-                      <Typography
-                        component="li"
-                        variant="subtitle1"
-                        align="center"
-                        key={line}
-                      >
-                        {line}
-                      </Typography>
-                    ))}
-                  </ul>
-                </CardContent>
-                <CardActions>
-                  <Button
-                    fullWidth
-                    variant={tier.buttonVariant}
-                    color="primary"
+                  <Typography
+                    variant="p"
+                    align="center"
+                    color="textSecondary"
+                    component="p"
                   >
-                    {tier.buttonText}
-                  </Button>
+                    {item.description}
+                  </Typography>
+                </CardContent>
+                <CardActions style={{ justifyContent: "center" }}>
+                  <Link
+                    variant="button"
+                    fullWidth
+                    color="primary"
+                    component={RouterLink}
+                    to={item.to}
+                  >
+                    {item.buttonText}
+                  </Link>
                 </CardActions>
               </Card>
             </Grid>
