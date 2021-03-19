@@ -1,26 +1,28 @@
 import React from "react";
 import {
-  Button,
   Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  Grid,
   Typography,
-  Container,
-  Paper,
+  CardContent,
+  CardMedia,
   Box,
 } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import StarIcon from "@material-ui/icons/StarBorder";
+import Rating from "@material-ui/lab/Rating";
+
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+
+import { searchGenres } from "../../utils/searcher";
 
 const useStyles = makeStyles((theme) => ({
-  link: {
-    margin: theme.spacing(1, 1.5),
+  root: {
+    display: "flex",
+    flexDirection: "column",
   },
-  content: {
-    padding: theme.spacing(5),
-    margin: theme.spacing(6, 12),
+  title: {
+    fontSize: 14,
+  },
+  contentMovie: {
+    padding: theme.spacing(8, 0, 6),
+    margin: theme.spacing(5),
   },
   cardHeader: {
     backgroundColor:
@@ -34,49 +36,147 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "baseline",
     marginBottom: theme.spacing(2),
   },
+
+  details: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  detailsMovie: {
+    marginTop: theme.spacing(4),
+  },
+  content: {
+    flex: "",
+  },
+  cover: {
+    width: 800,
+  },
+  controls: {
+    display: "flex",
+    alignItems: "center",
+    paddingLeft: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+  },
+  playIcon: {
+    height: 38,
+    width: 38,
+  },
+  ratingStyle: {
+    sizeSmall: "small",
+  },
+  cardMovieMainContent: {
+    display: "flex",
+    marginBottom: 15,
+    marginLeft: 10,
+    marginRight: 10,
+  },
+  cardMovieDetailContent: {
+    paddingLeft: 20,
+    paddingRight: 10,
+  },
+  cardMovieActionContent: {
+    paddingTop: 30,
+  },
 }));
 
-const Movie = ({movie}) => {
-  const classes = useStyles();
+function SimpleRating({ ratingValue }) {
+  return (
+    <div>
+      <Rating name="size-small" value={ratingValue} max={5} size="small" />
+    </div>
+  );
+}
 
+function SearchGenrer({ genreIds, genres }) {
+  const genresNames = searchGenres(genreIds, genres);
+  return genresNames.join(", ");
+}
+
+const Movie = ({ movie, genres }) => {
+  const classes = useStyles();
   return (
     <>
-      <Card>
-        <CardHeader
-          title={movie.title}
-          subheader={movie.subheader}
-          titleTypographyProps={{ align: "center" }}
-          subheaderTypographyProps={{ align: "center" }}
-          action={movie.title === "Pro" ? <StarIcon /> : null}
-          className={classes.cardHeader}
-        />
-        <CardContent>
-          <div className={classes.cardPricing}>
-            <Typography component="h2" variant="h3" color="textPrimary">
-              ${movie.price}
+      <Card className={classes.root} variant="outlined">
+        <div>
+          <CardContent>
+            <Typography
+              className={classes.title}
+              variant="h5"
+              component="h2"
+              color="textSecondary"
+              gutterBottom
+            >
+              <Box fontWeight={900}>{movie.title}</Box>
             </Typography>
-            <Typography variant="h6" color="textSecondary">
-              /mo
-            </Typography>
-          </div>
-          <ul>
-            {movie.description.map((line) => (
-              <Typography
-                component="li"
-                variant="subtitle1"
-                align="center"
-                key={line}
-              >
-                {line}
+          </CardContent>
+          <div className={classes.cardMovieMainContent}>
+            <CardMedia
+              className={classes.cover}
+              image={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+              title={movie.title}
+            />
+            <div className={classes.cardMovieDetailContent}>
+              <Typography variant="caption" color="textSecondary">
+                {movie.overview.substr(0, 200)}
               </Typography>
-            ))}
-          </ul>
-        </CardContent>
-        <CardActions>
-          <Button fullWidth variant={movie.buttonVariant} color="primary">
-            {movie.buttonText}
-          </Button>
-        </CardActions>
+
+              <div className={classes.cardMovieActionContent}>
+                <Typography variant="caption" color="textSecondary">
+                  <Box fontWeight={900}>
+                    Titulo:{" "}
+                    <Typography
+                      component="span"
+                      variant="caption"
+                      color="textSecondary"
+                    >
+                      {movie.title}
+                    </Typography>
+                  </Box>
+                </Typography>
+                <Typography variant="caption" color="textSecondary">
+                  <Box fontWeight={900}>
+                    Calificación:{" "}
+                    <Typography
+                      component="span"
+                      variant="caption"
+                      color="textSecondary"
+                    >
+                      {movie.vote_average}
+                      <SimpleRating ratingValue={movie.vote_average} />
+                    </Typography>
+                  </Box>
+                </Typography>
+                <Typography variant="caption" color="textSecondary">
+                  <Box fontWeight={900}>
+                    Genero:{" "}
+                    <Typography
+                      component="span"
+                      variant="caption"
+                      color="textSecondary"
+                    >
+                      <SearchGenrer
+                        genres={genres}
+                        genreIds={movie.genre_ids}
+                      />
+                    </Typography>
+                  </Box>
+                </Typography>
+
+                <Typography variant="caption" color="textSecondary">
+                  <Box fontWeight={900}>
+                    Fecha de realización:{" "}
+                    <Typography
+                      component="span"
+                      variant="caption"
+                      color="textSecondary"
+                    >
+                      {movie.release_date}
+                    </Typography>
+                  </Box>
+                </Typography>
+              </div>
+            </div>
+          </div>
+        </div>
       </Card>
     </>
   );

@@ -1,9 +1,12 @@
-import { get } from "axios";
+import { post } from "axios";
+import { config as configEnvironments } from "../config";
 
-const getMovies = async () => {
-  return get(dataPath)
-    .then((res) => console.log(res.data))
-    .catch((err) => console.log(err));
-};
+const API_URL = "http://localhost:8000/api/movies";
+
+function getMovies() {
+  return post(`${API_URL}`, {
+    akelab: configEnvironments.clientId,
+  });
+}
 
 export { getMovies };
